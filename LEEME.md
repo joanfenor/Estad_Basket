@@ -1,35 +1,41 @@
-# Estad_Basket
+# El español de Katia — app para el móvil
 
-App web para llevar las estadísticas de un jugador de baloncesto partido a partido.
-Guarda cada acción en el propio móvil, funciona sin cobertura y no necesita ninguna cuenta.
+Contenido de la carpeta:
 
-## 1. Publicarla (gratis, sin instalar nada)
-1. Entra en https://app.netlify.com/drop y crea una cuenta gratuita (con tu correo personal).
-2. Arrastra esta carpeta entera a la página.
-3. Te da una dirección del tipo `https://algo.netlify.app`. Puedes cambiarle el nombre en
-   Site configuration > Change site name (por ejemplo `estadillo-tunombre`).
-4. Para actualizar la app más adelante: Deploys > arrastra otra vez la carpeta.
+- `index.html`: pantalla de inicio (Verbos / Vocabulario)
+- `verbos.html` y `vocabulario.html`: las dos partes
+- `manifest.webmanifest`, `sw.js` e `icons/`: lo que hace que se instale como app y funcione sin conexión
 
-Los archivos `Codigo.gs` y `LEEME.md` no hace falta subirlos (si se suben, no pasa nada).
+No necesita servidor propio ni hoja de Google: todo el progreso se guarda en el móvil de Katia.
 
-## 2. Instalarla en el móvil
-1. Abre la dirección en Safari (iPhone) o Chrome (Android).
-2. Añádela a la pantalla de inicio:
-   - iPhone: botón Compartir > «Añadir a pantalla de inicio».
-   - Android: menú ⋮ > «Añadir a pantalla de inicio» / «Instalar aplicación».
-3. Úsala siempre desde ese icono. En iPhone, el icono y Safari guardan los datos por separado.
+## 1. Publicarla (elige una opción)
 
-## 3. Copias de seguridad y cambio de móvil
-- Al terminar cada partido, la app propone «Guardar copia». Se abre el menú de compartir:
-  envía el archivo `estad_basket-copia-AAAA-MM-DD.txt` a WhatsApp (a ti mismo), al correo o a Archivos.
-- En la pantalla de inicio verás cuándo fue la última copia y si hay partidos sin copiar.
-- Móvil nuevo: instala la app (paso 2), pulsa «Restaurar desde archivo» y elige la última copia.
-- «Exportar a Excel (CSV)» genera una tabla con una fila por partido.
+**Opción A: GitHub Pages (como Estad_Basket)**
+1. En github.com, con tu cuenta personal: *New repository* → nombre, por ejemplo, `espanol-katia` → *Public* → *Create*.
+2. *Add file → Upload files* → arrastra **el contenido** de esta carpeta (los archivos y la carpeta `icons`, no la carpeta entera) → *Commit changes*.
+3. *Settings → Pages* → *Source: Deploy from a branch* → *Branch: main* y carpeta `/ (root)` → *Save*.
+4. En uno o dos minutos tendrás la dirección: `https://TU-USUARIO.github.io/espanol-katia/`
 
-## Opcional: Google Sheets
-Quien quiera copia automática en una hoja de Google puede usar `Codigo.gs`
-(instrucciones dentro del archivo) y pulsar «Conectar con Google Sheets (opcional)» en la app.
+**Opción B: Netlify Drop**
+1. Entra en `app.netlify.com/drop` con tu cuenta personal.
+2. Arrastra la carpeta descomprimida. Te da una dirección `https://algo.netlify.app`.
 
-## Si cambias el código
-Cambia en `sw.js` la línea `estad_basket-v1` por `estad_basket-v2` (y así sucesivamente)
-para que los móviles descarguen la versión nueva.
+## 2. Instalarla en el móvil de Katia
+
+- **Android (Chrome):** abre la dirección → menú ⋮ → *Instalar aplicación* (o *Añadir a pantalla de inicio*).
+- **iPhone (Safari):** abre la dirección → botón *Compartir* → *Añadir a pantalla de inicio*.
+
+Aparece un icono con su cara sobre la bandera. Después de abrirla una vez con conexión, funciona sin internet.
+
+## 3. Actualizarla más adelante
+
+1. Sube los archivos nuevos (reemplazando los antiguos).
+2. En `sw.js`, cambia `const VERSION='v1';` por `'v2'` (y así sucesivamente) y súbelo también.
+3. La próxima vez que Katia abra la app con conexión se descarga la versión nueva; la siguiente vez que la abra ya la verá.
+
+Los puntos y el progreso de Katia no se pierden al actualizar.
+
+## Avisos
+
+- El progreso se guarda en el móvil. Si Katia borra los datos del navegador o desinstala la app, se pierde.
+- Los puntos que hubiera conseguido en las páginas anteriores (el enlace de Claude o los archivos HTML sueltos) no pasan a la app: empieza de cero.
