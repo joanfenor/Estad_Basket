@@ -1,6 +1,6 @@
 {
-  "name": "Estadillo del Jugador",
-  "short_name": "Estadillo",
+  "name": "Estad_Basket",
+  "short_name": "Estad_Basket",
   "description": "Estadísticas de baloncesto de un jugador, partido a partido.",
   "lang": "es",
   "start_url": "./",

@@ -1,4 +1,4 @@
-# Estadillo del Jugador
+# Estad_Basket
 
 App web para llevar las estadísticas de un jugador de baloncesto partido a partido.
 Guarda cada acción en el propio móvil, funciona sin cobertura y no necesita ninguna cuenta.
@@ -21,7 +21,7 @@ Los archivos `Codigo.gs` y `LEEME.md` no hace falta subirlos (si se suben, no pa
 
 ## 3. Copias de seguridad y cambio de móvil
 - Al terminar cada partido, la app propone «Guardar copia». Se abre el menú de compartir:
-  envía el archivo `estadillo-copia-AAAA-MM-DD.txt` a WhatsApp (a ti mismo), al correo o a Archivos.
+  envía el archivo `estad_basket-copia-AAAA-MM-DD.txt` a WhatsApp (a ti mismo), al correo o a Archivos.
 - En la pantalla de inicio verás cuándo fue la última copia y si hay partidos sin copiar.
 - Móvil nuevo: instala la app (paso 2), pulsa «Restaurar desde archivo» y elige la última copia.
 - «Exportar a Excel (CSV)» genera una tabla con una fila por partido.
@@ -31,5 +31,5 @@ Quien quiera copia automática en una hoja de Google puede usar `Codigo.gs`
 (instrucciones dentro del archivo) y pulsar «Conectar con Google Sheets (opcional)» en la app.
 
 ## Si cambias el código
-Cambia en `sw.js` la línea `estadillo-v1` por `estadillo-v2` (y así sucesivamente)
+Cambia en `sw.js` la línea `estad_basket-v1` por `estad_basket-v2` (y así sucesivamente)
 para que los móviles descarguen la versión nueva.

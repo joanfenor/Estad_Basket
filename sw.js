@@ -1,6 +1,6 @@
-// Estadillo: guarda la app en el móvil para que se abra aunque no haya cobertura.
+// Estad_Basket: guarda la app en el móvil para que se abra aunque no haya cobertura.
 // Si cambias index.html, sube también este archivo cambiando la versión de CACHE.
-const CACHE = 'estadillo-v1';
+const CACHE = 'estad_basket-v1';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', (e) => {
