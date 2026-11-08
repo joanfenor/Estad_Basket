@@ -199,6 +199,7 @@ table.qt td.v{color:var(--accent)}
 .court-toggle .tm{font-family:var(--f-display);font-weight:700;font-size:30px;font-variant-numeric:tabular-nums}
 .court-toggle.on{background:var(--made);border-color:var(--made);color:#fff}
 .court-toggle.off{color:var(--muted)}
+.court-toggle.rest{border-style:dashed;color:var(--muted);cursor:default}
 .clock-sum{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
 .clock-sum b{color:var(--ink)}
 .warnbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:2px solid var(--warnc);border-radius:var(--r);padding:10px 12px;background:var(--surface)}
@@ -239,7 +240,7 @@ table.st td .pct{color:var(--muted);font-size:14px;font-weight:500;margin-left:6
 <script>
 (function(){
 "use strict";
-var LS_KEY="estadillo.v1", APP_VERSION="8 nov 2026 · minutos";
+var LS_KEY="estadillo.v1", APP_VERSION="8 nov 2026 · minutos 2";
 var STATS=[
   {k:"oreb",l:"Rebote ataque"},{k:"dreb",l:"Rebote defensa"},{k:"ast",l:"Asistencia",p:"Asistencias"},{k:"stl",l:"Robo",p:"Robos"},
   {k:"blk",l:"Tapón",p:"Tapones"},{k:"fd",l:"Falta recibida",p:"Faltas recibidas"},{k:"tov",l:"Pérdida",p:"Pérdidas",neg:true},{k:"blka",l:"Tapón recibido",p:"Tapones recibidos",neg:true},{k:"pf",l:"Falta",p:"Faltas personales",neg:true}
@@ -297,13 +298,14 @@ function fmtDate(d,long){if(!d)return "";var p=d.split("-");if(long){var dt=new 
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function today(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 function describe(e){if(!e)return "";
-  if(e.t==="qs")return "Empieza "+qLabel(e.q);if(e.t==="qe")return "Fin de "+qLabel(e.q);if(e.t==="in")return "Entra a pista";if(e.t==="out")return "Sale al banquillo";if(e.t==="ps")return "Pausa";if(e.t==="pe")return "Reanuda";if(e.t==="shot")return "Tiro de "+e.v+" "+(e.made?"anotado":"fallado")+" ("+(Math.hypot(e.x-BASKET.x,e.y-BASKET.y)/10).toFixed(1).replace(".",",")+" m)";if(e.t==="ft")return "Tiro libre "+(e.made?"anotado":"fallado");return STAT_LABEL[e.k]||e.k}
+  if(e.t==="qs")return "Empieza "+qLabel(e.q);if(e.t==="qe")return finTxt(e.q);if(e.t==="in")return "Entra a pista";if(e.t==="out")return "Sale al banquillo";if(e.t==="ps")return "Pausa";if(e.t==="pe")return "Reanuda";if(e.t==="shot")return "Tiro de "+e.v+" "+(e.made?"anotado":"fallado")+" ("+(Math.hypot(e.x-BASKET.x,e.y-BASKET.y)/10).toFixed(1).replace(".",",")+" m)";if(e.t==="ft")return "Tiro libre "+(e.made?"anotado":"fallado");return STAT_LABEL[e.k]||e.k}
 function compTxt(g){for(var i=0;i<COMPS.length;i++)if(COMPS[i][0]===g.comp)return COMPS[i][1];return ""}
 function metaTxt(g){return [venueTxt(g),compTxt(g)].filter(Boolean).join(" · ")}
 function seasonOf(d){if(!d)return "";var y=+d.slice(0,4),m=+d.slice(5,7),a=m>=8?y:y-1;return a+"-"+String(a+1).slice(2)}
 function qShort(q){return q>=5?"PR"+(q>5?q-4:""):q+"º"}
 function qName(q){return q>=5?"Prórroga"+(q>5?" "+(q-4):""):q+"º cuarto"}
 function qLabel(q){return q>=5?"la prórroga"+(q>5?" "+(q-4):""):(q===1?"el 1er cuarto":q===3?"el 3er cuarto":"el "+q+"º cuarto")}
+function finTxt(q){return "Fin "+qLabel(q).replace(/^el /,"del ").replace(/^la /,"de la ")}
 function fmtMin(sec){if(sec==null)return "–";sec=Math.max(0,Math.round(sec));return Math.floor(sec/60)+":"+String(sec%60).padStart(2,"0")}
 function fmtClock(ms){return fmtMin(ms/1000)}
 function qLenSec(g,q){return (q>=5?5:(g.qLen||10))*60}
@@ -332,6 +334,7 @@ function timing(g,now){
   });
   return {per:per,total:total,done:done,cur:cur,running:running,paused:paused,on:on,onStart:onStart,segs:segs,pauses:ps,lastEnded:lastEnded,started:cur>0};
 }
+function stintMs(tm,now){if(!tm.running||!tm.on||!tm.per[tm.cur])return 0;var p=tm.per[tm.cur],a=Math.max(tm.onStart,p.a),ms=now-a;tm.pauses.forEach(function(ps){ms-=ovl(ps[0],ps[1],a,now)});return Math.max(0,ms)}
 function minSec(g){if(g.minManual!=null&&g.minManual!=="")return +g.minManual*60;var t=timing(g);return t.done?t.total:null}
 function per10(v,sec){return sec&&sec>=60?(v*600/sec).toFixed(1).replace(".",","):"–"}
 function finals(){return games().filter(function(g){return g.status==="final"})}
@@ -508,11 +511,13 @@ function vGame(){
        '<button class="btn" data-act="pause">'+(tm.paused?"Reanudar":"Pausa")+'</button><button class="btn" data-act="qend">Fin del cuarto</button></div></div>';
   } else {
     var nq=(tm.lastEnded||0)+1;
-    h+='<div class="clock-top"><div class="q">'+(tm.lastEnded?"Fin de "+qLabel(tm.lastEnded):"Antes de empezar")+'<small>'+(tm.lastEnded>=4?"Pulsa «Terminar» si ha acabado el partido":"Pulsa cuando el árbitro dé el inicio")+'</small></div>'+
+    h+='<div class="clock-top"><div class="q">'+(tm.lastEnded?finTxt(tm.lastEnded):"Antes de empezar")+'<small>'+(tm.lastEnded>=4?"Pulsa «Terminar» si ha acabado el partido":"Pulsa cuando el árbitro dé el inicio")+'</small></div>'+
        '<button class="btn primary" style="font-size:17px;min-height:46px" data-act="qstart" data-v="'+nq+'">Empezar '+(nq>=5?"prórroga":nq+"º")+'</button></div>';
+    if(tm.lastEnded)h+='<button class="btn ghost small" style="min-height:36px;align-self:flex-start" data-act="qreopen">↶ Reabrir '+qLabel(tm.lastEnded)+' (fin pulsado por error)</button>';
   }
-  h+='<button class="court-toggle '+(tm.on?"on":"off")+'" data-act="toggle-court"><span class="st">'+(tm.on?"EN PISTA":"BANQUILLO")+'<small>'+(tm.on?"Toca cuando salga":"Toca cuando entre")+'</small></span>'+
-     (tm.on?'<span class="tm" data-live="stint">'+fmtClock(now-tm.onStart)+'</span>':"")+'</button>';
+  if(tm.running)h+='<button class="court-toggle '+(tm.on?"on":"off")+'" data-act="toggle-court"><span class="st">'+(tm.on?"EN PISTA":"BANQUILLO")+'<small>'+(tm.paused?"Tiempo en pausa":tm.on?"Toca cuando salga":"Toca cuando entre")+'</small></span>'+
+     (tm.on?'<span class="tm" data-live="stint">'+fmtClock(stintMs(tm,now))+'</span>':"")+'</button>';
+  else h+='<div class="court-toggle rest"><span class="st">'+(tm.started?"DESCANSO":"SIN EMPEZAR")+'<small>'+(tm.started?"El tiempo está parado. Al empezar el cuarto te preguntará si está en pista.":"El tiempo empieza a contar con «Empezar 1º».")+'</small></span></div>';
   if(tm.started)h+='<div class="clock-sum">Minutos jugados: <b data-live="mins">'+fmtMin(tm.total+(tm.running&&tm.per[tm.cur]?tm.per[tm.cur].sec:0))+'</b>'+(tm.running?' <span>(estimado)</span>':'')+'</div>';
   h+='</div>';
   if(benchWarn&&tm.running&&!tm.on)h+='<div class="warnbar"><p>Está marcado en el banquillo. ¿Ha entrado?</p><div class="row"><button class="btn" data-act="bench-yes">Sí, ha entrado</button><button class="btn ghost" data-act="bench-no">No</button></div></div>';
@@ -743,6 +748,9 @@ document.addEventListener("click",function(ev){
   else if(a==="qstart-go"){var gs1=S.games[currentId],q1=startSheet,want=b.getAttribute("data-on")==="1",t1=timing(gs1);startSheet=0;
     addEvent({t:"qs",q:q1});if(want!==t1.on)addEvent({t:want?"in":"out",q:q1});benchWarn=false;requestWake();render()}
   else if(a==="qend"){var tq=timing(S.games[currentId]);if(tq.running){addEvent({t:"qe",q:tq.cur});try{navigator.vibrate&&navigator.vibrate([30,60,30])}catch(e){}}benchWarn=false;render()}
+  else if(a==="qreopen"){var gr2=S.games[currentId],tr=timing(gr2);
+    for(var ri=gr2.events.length-1;ri>=0;ri--){var ev=gr2.events[ri];if(ev.t==="qe"&&ev.q===tr.lastEnded){gr2.events.splice(ri,1);break}}
+    touch(gr2);buzz();render()}
   else if(a==="pause"){var tp=timing(S.games[currentId]);addEvent({t:tp.paused?"pe":"ps"});render()}
   else if(a==="toggle-court"){var tc=timing(S.games[currentId]);addEvent({t:tc.on?"out":"in"});benchWarn=false;render()}
   else if(a==="bench-yes"){addEvent({t:"in"});benchWarn=false;render()}
@@ -999,7 +1007,7 @@ setInterval(function(){
   if(view!=="game")return;var g=S.games[currentId];if(!g)return;
   var tm=timing(g),now=Date.now(),set=function(k,v){var el=document.querySelector('[data-live="'+k+'"]');if(el)el.textContent=v};
   if(tm.running&&tm.per[tm.cur])set("qreal",fmtClock(tm.per[tm.cur].real));
-  if(tm.on)set("stint",fmtClock(now-tm.onStart));
+  if(tm.on)set("stint",fmtClock(stintMs(tm,now)));
   set("mins",fmtMin(tm.total+(tm.running&&tm.per[tm.cur]?tm.per[tm.cur].sec:0)));
 },1000);
 
