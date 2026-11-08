@@ -1,6 +1,6 @@
 // Estad_Basket: guarda la app en el móvil para que se abra aunque no haya cobertura.
-// Si cambias index.html, sube también este archivo cambiando la versión de CACHE.
-const CACHE = 'estad_basket-v1';
+// Pide siempre la versión más reciente a GitHub; si no hay conexión, usa la guardada.
+const CACHE = 'estad_basket-v3';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', (e) => {
@@ -31,7 +31,7 @@ self.addEventListener('fetch', (e) => {
   // Archivos de la app: primero la red (para recibir actualizaciones), y si no hay cobertura, la copia guardada.
   if (url.origin === self.location.origin) {
     e.respondWith(
-      withTimeout(fetch(req), 3500)
+      withTimeout(fetch(req, { cache: 'no-store' }), 5000)
         .then((res) => {
           if (res && res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(req, copy)); }
           return res;
