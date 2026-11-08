@@ -144,7 +144,15 @@ table.qt td.v{color:var(--accent)}
 .score .pts span{color:var(--bg);opacity:.75}
 .score .val{border-color:var(--accent);border-width:2px}
 .score .val b{color:var(--accent)}
-.court-wrap{border-radius:var(--r);overflow:hidden;box-shadow:0 2px 0 rgba(0,0,0,.08)}
+.court-wrap{position:relative;border-radius:var(--r);overflow:hidden;box-shadow:0 2px 0 rgba(0,0,0,.08)}
+.flip-btn{position:absolute;right:10px;bottom:10px;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(14,26,38,.78);color:#fff;border:2px solid rgba(255,255,255,.85);box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.flip-btn.top{bottom:auto;top:10px}
+.flip-btn svg{width:24px;height:24px}
+.pause-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;background:rgba(14,26,38,.18)}
+.pause-ov i{display:block;width:22px;height:78px;margin:0 9px;border-radius:6px;background:#fff;box-shadow:0 0 0 3px rgba(194,58,44,.9);animation:pz 2.4s ease-in-out infinite}
+@keyframes pz{0%,100%{opacity:.3}50%{opacity:.85}}
+.btn.resume{background:var(--miss);border-color:var(--miss);color:#fff}
+.dock .btn{min-height:46px;padding:0 14px}
 .court{display:block;width:100%;height:auto;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 .court.tap{cursor:crosshair}
 .hint{margin:-8px 0 0;text-align:center;font-size:14px;color:var(--muted)}
@@ -154,9 +162,15 @@ table.qt td.v{color:var(--accent)}
 .ft button.miss{border-color:var(--miss);color:var(--miss)}
 .ft .c{font-family:var(--f-display);font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.stat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:76px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);padding:6px 4px;text-align:center}
+.stat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:84px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);padding:6px 4px;text-align:center}
 .stat .c{font-family:var(--f-display);font-weight:700;font-size:28px;line-height:1;font-variant-numeric:tabular-nums}
-.stat .l{font-size:13px;line-height:1.15;color:var(--muted)}
+.stat .l{font-size:14px;font-weight:600;line-height:1.15;color:var(--ink)}
+.stat .top{display:flex;align-items:center;gap:6px}
+.stat .ic{display:flex;color:var(--team)}
+.stat .ic svg{width:30px;height:30px}
+.stat.neg .ic{color:var(--miss)}
+.stat.neg.f5 .ic{color:#fff}
+.stat.neg.f4 .ic{color:var(--warnc)}
 .stat.neg{background:var(--neg-tint)}
 .stat.neg .c{color:var(--miss)}
 .stat:not(.neg) .c{color:var(--team)}
@@ -208,6 +222,25 @@ table.qt td.v{color:var(--accent)}
 .rot{display:block;width:100%;height:auto}
 .legend i.on{background:var(--team);border-radius:3px}
 .legend i.off{background:var(--surface-2);border:1px solid var(--line);border-radius:3px}
+.hero-edit{display:inline-flex;align-items:center;gap:6px;margin-top:10px;min-height:34px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,255,255,.45);color:#fff;font-size:14px;font-weight:600;background:rgba(255,255,255,.08)}
+.actions{display:flex;flex-direction:column;gap:8px}
+.actions .btn{width:100%;justify-content:flex-start}
+.actions .btn.primary{justify-content:center}
+.actions .btn.pending{border:2px solid var(--miss);color:var(--miss)}
+.valinfo{cursor:pointer}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;border:1.5px solid currentColor;font:700 11px/1 var(--f-body);font-style:normal;margin-left:5px;vertical-align:2px;opacity:.75}
+.valpop{position:fixed;z-index:40;width:min(330px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 32px rgba(0,0,0,.28);padding:14px 16px;font-size:14px;line-height:1.35}
+.valpop h4{margin:0 0 6px;font-family:var(--f-display);font-size:20px}
+.valpop table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.valpop td{padding:3px 0}
+.valpop td:last-child{text-align:right;font-family:var(--f-display);font-weight:700;font-size:16px}
+.valpop .plus td:last-child{color:var(--made)}
+.valpop .minus td:last-child{color:var(--miss)}
+.valpop .zero td{color:var(--muted)}
+.valpop .tot td{border-top:1px solid var(--line);padding-top:6px;font-weight:700}
+.valpop .tot td:last-child{color:var(--accent);font-size:20px}
+.valpop p{margin:8px 0 0;color:var(--muted);font-size:13px}
+.legend i.pz{width:14px;height:6px;border-radius:2px;background:var(--muted);opacity:.55;vertical-align:2px}
 .bigpair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .bigpair button{min-height:84px;border-radius:14px;font-family:var(--f-display);font-weight:700;font-size:26px;letter-spacing:.03em;color:#fff;background:var(--made)}
 .bigpair button.miss{background:var(--miss)}
@@ -230,7 +263,7 @@ table.st td .pct{color:var(--muted);font-size:14px;font-weight:500;margin-left:6
 .endscore{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:end}
 .endscore input{font-family:var(--f-display);font-size:40px;text-align:center;font-weight:700;padding:8px}
 .endscore .dash{font-family:var(--f-display);font-size:40px;padding-bottom:10px;color:var(--muted)}
-@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}.pause-ov i{opacity:.7}}
 @media (max-width:370px){.score b{font-size:19px}.score .pts b{font-size:28px}.stat .l{font-size:12px}}
 </style>
 </head>
@@ -240,11 +273,27 @@ table.st td .pct{color:var(--muted);font-size:14px;font-weight:500;margin-left:6
 <script>
 (function(){
 "use strict";
-var LS_KEY="estadillo.v1", APP_VERSION="8 nov 2026 · minutos 2";
+var LS_KEY="estadillo.v1", APP_VERSION="8 nov 2026 · ajustes 2";
 var STATS=[
   {k:"oreb",l:"Rebote ataque"},{k:"dreb",l:"Rebote defensa"},{k:"ast",l:"Asistencia",p:"Asistencias"},{k:"stl",l:"Robo",p:"Robos"},
   {k:"blk",l:"Tapón",p:"Tapones"},{k:"fd",l:"Falta recibida",p:"Faltas recibidas"},{k:"tov",l:"Pérdida",p:"Pérdidas",neg:true},{k:"blka",l:"Tapón recibido",p:"Tapones recibidos",neg:true},{k:"pf",l:"Falta",p:"Faltas personales",neg:true}
 ];
+var IC=(function(){
+  var B='<circle cx="12" cy="8" r="4.5"/><path d="M7.5 8h9M12 3.5v9"/>';
+  var sv=function(b){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+b+'</svg>'};
+  var whistle='<path d="M3 14.5a5 5 0 1 0 10 0a5 5 0 0 0-10 0z"/><path d="M11.5 10.2L21 7.5v4l-7.6 1.6"/><circle cx="8" cy="14.5" r="1.3" fill="currentColor"/>';
+  return {
+    oreb:sv(B+'<path d="M12 21.5v-6M9 18l3-3 3 3"/><path d="M18 17h3M19.5 15.5v3"/>'),
+    dreb:sv(B+'<path d="M12 21.5v-6M9 18l3-3 3 3"/><path d="M17.5 15.5l2.5-1 2.5 1v2.2c0 1.6-1.1 2.6-2.5 3.3-1.4-.7-2.5-1.7-2.5-3.3z"/>'),
+    ast:sv('<circle cx="5" cy="17" r="2.5"/><path d="M7.5 15.5C11 9 15 7 20.5 6.5"/><path d="M16.5 4.5l4 2-2.5 3.5"/><circle cx="19" cy="17" r="2.5"/>'),
+    stl:sv('<circle cx="15" cy="9" r="4.5"/><path d="M10.5 9h9M15 4.5v9"/><path d="M2.5 18.5c3 0 5.5-1.2 7.5-3.5"/><path d="M7 13l3 2-1.5 3.3"/>'),
+    blk:sv('<path d="M8 21V12M8 12V5.5a1.5 1.5 0 0 1 3 0V11M11 10V4a1.5 1.5 0 0 1 3 0v7M14 10.5V5.5a1.5 1.5 0 0 1 3 0V14c0 4-2.5 7-6 7H9.5"/><path d="M8 13.5L5.8 11a1.4 1.4 0 0 0-2.2 1.8L7 18"/>'),
+    fd:sv(whistle),
+    tov:sv('<circle cx="9" cy="9" r="4.5"/><path d="M4.5 9h9M9 4.5v9"/><path d="M13 17h8M18 14l3 3-3 3"/><path d="M4 16l4 4M8 16l-4 4"/>'),
+    blka:sv('<circle cx="12" cy="16" r="4.5"/><path d="M7.5 16h9M12 11.5v9"/><path d="M5 3.5h14M12 3.5v4.5M9.5 6l2.5 2.5L14.5 6"/>'),
+    pf:sv(whistle+'<path d="M17 16l4 4M21 16l-4 4"/>')
+  };
+})();
 var STAT_LABEL={};STATS.forEach(function(s){STAT_LABEL[s.k]=s.l});
 var BASKET={x:75,y:15.75}, R3=67.5, CORNER_Y=29.9;
 var COMPS=[["liga","Liga"],["copa","Copa"],["torneo","Torneo"],["amistoso","Amistoso"]];
@@ -335,6 +384,7 @@ function timing(g,now){
   return {per:per,total:total,done:done,cur:cur,running:running,paused:paused,on:on,onStart:onStart,segs:segs,pauses:ps,lastEnded:lastEnded,started:cur>0};
 }
 function stintMs(tm,now){if(!tm.running||!tm.on||!tm.per[tm.cur])return 0;var p=tm.per[tm.cur],a=Math.max(tm.onStart,p.a),ms=now-a;tm.pauses.forEach(function(ps){ms-=ovl(ps[0],ps[1],a,now)});return Math.max(0,ms)}
+function qSec(g,tm,q){var p=tm.per[q];if(!p||!p.done)return null;var f=(g.minManual!=null&&g.minManual!==""&&tm.total>0)?(+g.minManual*60)/tm.total:1;return p.sec*f}
 function minSec(g){if(g.minManual!=null&&g.minManual!=="")return +g.minManual*60;var t=timing(g);return t.done?t.total:null}
 function per10(v,sec){return sec&&sec>=60?(v*600/sec).toFixed(1).replace(".",","):"–"}
 function finals(){return games().filter(function(g){return g.status==="final"})}
@@ -366,12 +416,12 @@ function courtSVG(shots,opt){
   }).join("");
   var pend=opt.pending?'<circle cx="'+opt.pending.x+'" cy="'+opt.pending.y+'" r="3.4" fill="none" stroke="#fff" stroke-width="1"/><circle cx="'+opt.pending.x+'" cy="'+opt.pending.y+'" r="1" fill="#fff"/>':"";
   var hashes="";[17.5,26,34.5,43].forEach(function(y){hashes+="M48.5 "+y+"H50.5M99.5 "+y+"H101.5"});
-  return '<svg xmlns="http://www.w3.org/2000/svg" class="court'+(opt.tap?" tap":"")+'"'+(opt.id?' id="'+opt.id+'"':"")+(opt.size?' width="'+opt.size[0]+'" height="'+opt.size[1]+'"':"")+' viewBox="-5 -5 160 117" role="img" aria-label="Media pista de baloncesto'+(opt.tap?', toca donde se ha tirado':'')+'">'+
+  return '<svg xmlns="http://www.w3.org/2000/svg" class="court'+(opt.tap?" tap":"")+'"'+(opt.id?' id="'+opt.id+'"':"")+(opt.size?' width="'+opt.size[0]+'" height="'+opt.size[1]+'"':"")+' viewBox="'+(opt.flip?"-5 0 160 117":"-5 -5 160 117")+'" role="img" aria-label="Media pista de baloncesto'+(opt.tap?', toca donde se ha tirado':'')+'">'+
   '<defs><pattern id="wood" width="6" height="48" patternUnits="userSpaceOnUse">'+
    '<rect width="3" height="20" fill="#d9a668"/><rect y="20" width="3" height="28" fill="#cf985a"/>'+
    '<rect x="3" width="3" height="9" fill="#e2b679"/><rect x="3" y="9" width="3" height="26" fill="#d6a062"/><rect x="3" y="35" width="3" height="13" fill="#dcab6d"/>'+
    '<path d="M3 0V48M0 20H3M3 9H6M3 35H6" stroke="#7a4a1e" stroke-opacity=".22" stroke-width=".14"/></pattern>'+
-   '<linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#4a2a0c" stop-opacity=".12"/></linearGradient></defs>'+
+   '<linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#4a2a0c" stop-opacity=".12"/></linearGradient></defs>'+(opt.flip?'<g transform="rotate(180 75 56)">':'<g>')+
   '<rect x="-5" y="-5" width="160" height="117" fill="#1d4f7a"/>'+
   '<rect x="0" y="0" width="150" height="112" fill="url(#wood)"/>'+
   '<path d="M9 0V29.9A67.5 67.5 0 0 0 141 29.9V0Z" fill="#b97a3e" fill-opacity=".16"/>'+
@@ -388,7 +438,7 @@ function courtSVG(shots,opt){
   '</g>'+
   '<path d="M66 12H84" stroke="#fff" stroke-width="1"/><path d="M75 12V13.5" stroke="#fff" stroke-width=".5"/>'+
   '<circle cx="75" cy="15.75" r="2.25" fill="none" stroke="#e8611f" stroke-width=".7"/>'+
-  marks+pend+'</svg>';
+  marks+pend+'</g></svg>';
 }
 
 /* ---------- Vistas ---------- */
@@ -422,14 +472,13 @@ function render(){
 function vHome(){
   var gs=games();
   var live=gs.filter(function(g){return g.status==="live"});
-  var h='<div class="hero"><div><div class="eyebrow">Estad_Basket</div><h1>'+esc(S.player.name)+'</h1></div>'+(S.player.dorsal?'<div class="dorsal num">#'+esc(S.player.dorsal)+'</div>':"")+'</div>';
+  var h='<div class="hero"><div><div class="eyebrow">Estad_Basket</div><h1>'+esc(S.player.name)+'</h1>'+(editPlayer?"":'<button class="hero-edit" data-act="edit-player">✎ Editar jugador</button>')+'</div>'+(S.player.dorsal?'<div class="dorsal num">#'+esc(S.player.dorsal)+'</div>':"")+'</div>';
   if(editPlayer){
     h+='<form class="card form" data-form="player"><div class="two"><label class="field">Nombre del jugador<input type="text" id="pl-name" value="'+esc(S.player.name)+'" maxlength="40"></label><label class="field">Dorsal<input type="text" id="pl-dorsal" inputmode="numeric" value="'+esc(S.player.dorsal)+'" maxlength="3"></label></div><div class="row"><button class="btn primary" type="submit">Guardar</button><button class="btn ghost" type="button" data-act="cancel-player">Cancelar</button></div></form>';
   }
   live.forEach(function(g){var c=calc(g);
     h+='<div class="card live-card"><div><span class="chip live">En juego</span><h3 style="font-size:24px;margin-top:6px">vs '+esc(g.rival)+'</h3><div class="muted small">'+fmtDate(g.date)+(metaTxt(g)?' · '+metaTxt(g):"")+' · '+c.pts+' puntos hasta ahora</div></div><button class="btn primary" data-act="open-game" data-id="'+g.id+'">Continuar</button></div>';
   });
-  h+='<button class="btn primary block" data-act="new">Nuevo partido</button>';
   var se=curSeason(), sl=seasonsList(), basis=seasonPool(se), isEx=basis.length&&basis[0].example;
   h+='<section class="card"><div class="section-head"><h2>Temporada '+se+'</h2><span class="muted small">'+(isEx?'<span class="chip ex">Ejemplo</span>':basis.length?"Media de "+basis.length+(basis.length===1?" partido":" partidos"):"")+'</span></div>';
   if(sl.length>1)h+='<div class="chips" style="margin-bottom:12px">'+sl.map(function(x){return '<button class="chipbtn" data-act="season" data-v="'+x+'" aria-pressed="'+(x===se)+'">'+x+'</button>'}).join("")+'</div>';
@@ -437,14 +486,15 @@ function vHome(){
     var t={pts:0,val:0,reb:0,ast:0,m2:0,a2:0,m3:0,a3:0,mft:0,aft:0,stl:0,tov:0},mS=0,mN=0;
     basis.forEach(function(g){var c=calc(g);for(var k in t)t[k]+=c[k];var ms=minSec(g);if(ms!=null){mS+=ms;mN++}});
     var n=basis.length,avg=function(v){return (v/n).toFixed(1).replace(".",",")};
-    h+='<div class="tiles"><div class="tile"><b>'+avg(t.pts)+'</b><span>Puntos</span></div><div class="tile"><b style="color:var(--accent)">'+avg(t.val)+'</b><span>Valoración</span></div><div class="tile"><b>'+avg(t.reb)+'</b><span>Rebotes</span></div>'+
+    h+='<div class="tiles"><div class="tile"><b>'+avg(t.pts)+'</b><span>Puntos</span></div><div class="tile valinfo" data-act="val-info" data-scope="season" role="button" tabindex="0"><b style="color:var(--accent)">'+avg(t.val)+'</b><span>Valoración<i class="ib">i</i></span></div><div class="tile"><b>'+avg(t.reb)+'</b><span>Rebotes</span></div>'+
       '<div class="tile"><b>'+avg(t.ast)+'</b><span>Asistencias</span></div><div class="tile"><b>'+avg(t.stl)+'</b><span>Robos</span></div><div class="tile"><b>'+(mN?fmtMin(mS/mN):"–")+'</b><span>Minutos</span></div>'+
       '<div class="tile"><b>'+pct(t.m2,t.a2)+'</b><span>T2 · '+t.m2+'/'+t.a2+'</span></div><div class="tile"><b>'+pct(t.m3,t.a3)+'</b><span>T3 · '+t.m3+'/'+t.a3+'</span></div><div class="tile"><b>'+pct(t.mft,t.aft)+'</b><span>TL · '+t.mft+'/'+t.aft+'</span></div></div>'+
       '<button class="btn link-btn" data-act="season-view"><span>Evolución, mapa de tiro y récords</span><span aria-hidden="true">›</span></button>';
   } else h+='<p class="muted" style="margin:0">Aún no hay partidos terminados en esta temporada.</p>';
   h+='</section>';
+  h+='<button class="btn primary block" data-act="new">Nuevo partido</button>';
   var list=gs.filter(function(g){return g.status!=="live"&&seasonOf(g.date)===se});
-  h+='<section class="card"><div class="section-head"><h2>Partidos</h2><button class="btn ghost small" style="min-height:36px" data-act="edit-player">Editar jugador</button></div><div class="games">';
+  h+='<section class="card"><div class="section-head"><h2>Partidos</h2></div><div class="games">';
   if(!list.length)h+='<p class="muted">'+(gs.length?"No hay partidos terminados en esta temporada.":"Aún no hay partidos. Pulsa «Nuevo partido» al empezar el siguiente.")+'</p>';
   list.forEach(function(g){var c=calc(g);
     h+='<button class="game-row" data-act="detail" data-id="'+g.id+'"><span class="date">'+fmtDate(g.date)+'</span><span class="vs">vs '+esc(g.rival)+'<br>'+(metaTxt(g)?'<span class="muted small">'+metaTxt(g)+'</span> ':"")+resultChip(g)+(g.example?' <span class="chip ex">Ejemplo</span>':"")+'</span><span class="pts">'+c.pts+'<small>PTS · VAL '+c.val+'</small></span></button>';
@@ -459,19 +509,6 @@ function vHome(){
      (notice?'<p class="small" style="margin:0"><b>'+esc(notice)+'</b></p>':"")+
      '<input type="file" id="restore-input" accept=".txt,.json,text/plain,application/json" hidden>'+
      '</section>';
-  if(syncOn()||showSync){
-    h+='<section class="card form"><div class="section-head" style="margin:0"><h2>Google Sheets</h2><span class="chip">Opcional</span></div><p class="small '+(cloud.status==="badtoken"?"":"muted")+'" style="margin:0">'+cloudLine()+'</p>';
-    if(!syncOn()||showSync){
-      h+='<form class="form" data-form="sync"><label class="field">Dirección del script (termina en /exec)<input type="url" id="sy-url" placeholder="https://script.google.com/macros/s/…/exec" value="'+esc(S.sync.url)+'" autocomplete="off" spellcheck="false"></label>'+
-         '<label class="field">Clave<input type="text" id="sy-token" value="'+esc(S.sync.token)+'" autocomplete="off" spellcheck="false"></label>'+
-         '<div class="row"><button class="btn" type="submit">Conectar</button><button class="btn ghost" type="button" data-act="toggle-sync">Cancelar</button>'+(syncOn()?'<button class="btn ghost danger" type="button" data-act="disconnect-sync">Desconectar</button>':"")+'</div></form>';
-    } else {
-      h+='<div class="row"><button class="btn" data-act="push-sync">Enviar ahora</button><button class="btn" data-act="pull-sync">Recuperar de la hoja</button><button class="btn ghost" data-act="toggle-sync">Cambiar</button></div>';
-    }
-    h+='</section>';
-  } else {
-    h+='<button class="btn ghost small" style="align-self:center;min-height:36px;color:var(--muted)" data-act="toggle-sync">Conectar con Google Sheets (opcional)</button>';
-  }
   h+='<section class="card form"><div class="section-head" style="margin:0"><h2>Apariencia</h2></div><div class="theme-seg" role="group" aria-label="Tema">'+
      [["auto","Automático"],["light","Claro"],["dark","Oscuro"]].map(function(o){return '<button data-act="theme" data-v="'+o[0]+'" aria-pressed="'+(themePref===o[0])+'">'+o[1]+'</button>'}).join("")+
      '</div><p class="small muted" style="margin:0">«Automático» sigue el modo del móvil.</p></section>'+
@@ -502,13 +539,13 @@ function vGame(){
   var g=S.games[currentId];if(!g){view="home";return vHome()}
   var c=calc(g), shots=g.events.filter(function(e){return e.t==="shot"});
   var h='<div class="gbar"><button class="btn ghost" data-act="home">‹ Inicio</button><div class="who"><div class="eyebrow">'+esc(g.player)+(g.dorsal?" #"+esc(g.dorsal):"")+' · '+fmtDate(g.date)+(metaTxt(g)?' · '+metaTxt(g):"")+'</div><h2>vs '+esc(g.rival)+'</h2></div><button class="btn" data-act="end">Terminar</button></div>';
-  h+='<div class="score"><div class="pts"><b>'+c.pts+'</b><span>Puntos</span></div><div><b>'+c.m2+'/'+c.a2+'</b><span>T2</span></div><div><b>'+c.m3+'/'+c.a3+'</b><span>T3</span></div><div><b>'+c.mft+'/'+c.aft+'</b><span>TL</span></div><div class="val"><b>'+c.val+'</b><span>Val</span></div></div>';
+  h+='<div class="score"><div class="pts"><b>'+c.pts+'</b><span>Puntos</span></div><div><b>'+c.m2+'/'+c.a2+'</b><span>T2</span></div><div><b>'+c.m3+'/'+c.a3+'</b><span>T3</span></div><div><b>'+c.mft+'/'+c.aft+'</b><span>TL</span></div><div class="val valinfo" data-act="val-info" data-id="'+g.id+'" role="button" tabindex="0"><b>'+c.val+'</b><span>Val<i class="ib">i</i></span></div></div>';
   var tm=timing(g),now=Date.now();
   h+='<div class="card clock">';
   if(tm.running){
     var pr=tm.per[tm.cur];
-    h+='<div class="clock-top"><div class="q">'+qName(tm.cur)+(tm.paused?' · en pausa':'')+'<small>Tiempo real <span data-live="qreal">'+fmtClock(pr?pr.real:0)+'</span></small></div><div class="row">'+
-       '<button class="btn" data-act="pause">'+(tm.paused?"Reanudar":"Pausa")+'</button><button class="btn" data-act="qend">Fin del cuarto</button></div></div>';
+    h+='<div class="clock-top"><div class="q">'+qName(tm.cur)+'<small>'+(tm.paused?'<b style="color:var(--miss)">En pausa</b> · ':'')+'Tiempo real <span data-live="qreal">'+fmtClock(pr?pr.real:0)+'</span></small></div><div class="row">'+
+       '<button class="btn" data-act="qend">Fin del cuarto</button></div></div>';
   } else {
     var nq=(tm.lastEnded||0)+1;
     h+='<div class="clock-top"><div class="q">'+(tm.lastEnded?finTxt(tm.lastEnded):"Antes de empezar")+'<small>'+(tm.lastEnded>=4?"Pulsa «Terminar» si ha acabado el partido":"Pulsa cuando el árbitro dé el inicio")+'</small></div>'+
@@ -521,13 +558,15 @@ function vGame(){
   if(tm.started)h+='<div class="clock-sum">Minutos jugados: <b data-live="mins">'+fmtMin(tm.total+(tm.running&&tm.per[tm.cur]?tm.per[tm.cur].sec:0))+'</b>'+(tm.running?' <span>(estimado)</span>':'')+'</div>';
   h+='</div>';
   if(benchWarn&&tm.running&&!tm.on)h+='<div class="warnbar"><p>Está marcado en el banquillo. ¿Ha entrado?</p><div class="row"><button class="btn" data-act="bench-yes">Sí, ha entrado</button><button class="btn ghost" data-act="bench-no">No</button></div></div>';
-  h+='<div class="court-wrap">'+courtSVG(shots,{tap:true,id:"court-live",highlightLast:true,pending:pendingShot})+'</div>';
+  h+='<div class="court-wrap">'+courtSVG(shots,{tap:true,id:"court-live",highlightLast:true,pending:pendingShot,flip:!!g.flip})+
+     (tm.paused?'<div class="pause-ov" aria-hidden="true"><i></i><i></i></div>':"")+
+     '<button class="flip-btn'+(g.flip?" top":"")+'" data-act="flip" aria-label="Girar la pista (cambio de campo)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v13M3.5 13.5L7 17l3.5-3.5"/><path d="M17 20V7M13.5 10.5L17 7l3.5 3.5"/></svg></button></div>';
   h+='<p class="hint">Toca la pista en el punto desde donde ha tirado</p>';
   h+='<div class="ft"><span class="lbl">TIRO<br>LIBRE</span><button data-act="ft" data-made="1" class="'+(flash==="ft1"?"bump":"")+'"><span class="c">'+c.mft+'</span> Anotado</button><button class="miss '+(flash==="ft0"?"bump":"")+'" data-act="ft" data-made="0"><span class="c">'+(c.aft-c.mft)+'</span> Fallado</button></div>';
   h+='<div class="stats">'+STATS.map(function(s){
     var cls="",lbl=s.l;
     if(s.k==="pf"){if(c.pf>=5){cls=" f5";lbl="Falta · eliminado"}else if(c.pf===4){cls=" f4";lbl="Falta · cuidado, 4ª"}}
-    return '<button class="stat'+(s.neg?" neg":"")+cls+(flash===s.k?" bump":"")+'" data-act="stat" data-k="'+s.k+'"><span class="c">'+c[s.k]+'</span><span class="l">'+lbl+'</span></button>'}).join("")+'</div>';
+    return '<button class="stat'+(s.neg?" neg":"")+cls+(flash===s.k?" bump":"")+'" data-act="stat" data-k="'+s.k+'"><span class="top"><span class="ic">'+(IC[s.k]||"")+'</span><span class="c">'+c[s.k]+'</span></span><span class="l">'+lbl+'</span></button>'}).join("")+'</div>';
   if(startSheet){
     h+='<div class="scrim" data-act="cancel-start"></div><div class="sheet" role="dialog" aria-label="Empezar cuarto"><div class="sheet-in">'+
       '<h2 style="font-size:28px">Empieza '+qLabel(startSheet)+'</h2><p class="muted" style="margin:0">¿Dónde está '+esc(g.player||"el jugador")+'?</p>'+
@@ -553,7 +592,7 @@ function vEnd(){
   '<form class="card form" data-form="end"><div class="endscore"><label class="field">Nuestro equipo<input type="number" id="end-us" inputmode="numeric" min="0" max="250" value="'+(g.final?g.final.us:"")+'"></label><span class="dash">–</span><label class="field">'+esc(g.rival)+'<input type="number" id="end-them" inputmode="numeric" min="0" max="250" value="'+(g.final?g.final.them:"")+'"></label></div>'+
   (function(){var tm=timing(g),est=tm.total+(tm.running&&tm.per[tm.cur]?tm.per[tm.cur].sec:0);
     return '<label class="field">Minutos jugados según el acta (opcional)<input type="number" id="end-min" inputmode="decimal" min="0" max="60" step="0.5" placeholder="'+(tm.started?"Calculado: "+fmtMin(est):"Ej.: 22")+'" value="'+(g.minManual!=null?g.minManual:"")+'"></label>'+
-      (tm.started?'<p class="small muted" style="margin:-8px 0 0">Déjalo en blanco para usar los minutos calculados por la app.</p>':"")})()+
+      (tm.started?'<p class="small muted" style="margin:-8px 0 0">Déjalo en blanco para usar los calculados. Si lo rellenas, los minutos de cada cuarto se ajustan para sumar lo del acta.</p>':"")})()+
   '<label class="field">Notas del partido (opcional)<textarea id="end-notes" maxlength="1000" placeholder="Ej.: jugó poco el 2º cuarto, muy bien en defensa…">'+esc(g.notes||"")+'</textarea></label>'+
   '<button class="btn primary block" type="submit">Guardar partido</button><p class="small muted" style="margin:0">Si no sabes el marcador, puedes dejarlo en blanco y añadirlo luego.</p></form>';
 }
@@ -563,18 +602,15 @@ function vDetail(){
   var c=calc(g), shots=g.events.filter(function(e){return e.t==="shot"}), msD=minSec(g), tmD=timing(g);
   var h='<div class="gbar"><button class="btn ghost" data-act="home">‹ Inicio</button><span>'+(g.example?'<span class="chip ex">Ejemplo</span>':"")+'</span></div>'+
   '<div><div class="eyebrow">'+fmtDate(g.date,true)+(metaTxt(g)?' · '+metaTxt(g):"")+'</div><h1 style="font-size:38px">vs '+esc(g.rival)+'</h1></div>'+
-  '<div class="result"><span class="big">'+c.pts+'<span class="eyebrow" style="font-size:15px;margin-left:6px">pts</span></span><span class="big" style="color:var(--accent)">'+c.val+'<span class="eyebrow" style="font-size:15px;margin-left:6px">val</span></span>'+(msD!=null?'<span class="big" style="font-size:34px">'+fmtMin(msD)+'<span class="eyebrow" style="font-size:15px;margin-left:6px">min</span></span>':"")+(resultChip(g)||'<button class="btn small" data-act="end" style="min-height:36px">Añadir resultado</button>')+'</div>';
+  '<div class="result"><span class="big">'+c.pts+'<span class="eyebrow" style="font-size:15px;margin-left:6px">pts</span></span><span class="big valinfo" style="color:var(--accent)" data-act="val-info" data-id="'+g.id+'" role="button" tabindex="0">'+c.val+'<span class="eyebrow" style="font-size:15px;margin-left:6px">val<i class="ib">i</i></span></span>'+(msD!=null?'<span class="big" style="font-size:34px">'+fmtMin(msD)+'<span class="eyebrow" style="font-size:15px;margin-left:6px">min</span></span>':"")+(resultChip(g)||'<button class="btn small" data-act="end" style="min-height:36px">Añadir resultado</button>')+'</div>';
   var nr=newRecords(g);
   if(nr.length)h+='<div class="card record"><svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v3h3v2a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 14.9V17h3v3H8v-3h3v-2.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V6h3V3zm0 5H6a2 2 0 0 0 1 1.7V8zm10 0v1.7A2 2 0 0 0 18 8h-1z" fill="var(--accent)"/></svg><div><b>'+(nr.length===1?"Nuevo récord personal":"Nuevos récords personales")+'</b><div class="small">'+nr.map(function(x){return x.l+": "+x.v+' <span class="muted">(antes '+x.prev+')</span>'}).join(" · ")+'</div></div></div>';
   if(editMeta){
     h+='<form class="card form" data-form="meta"><h2 style="font-size:22px">Datos del partido</h2>'+metaFields("em",g)+'<div class="row"><button class="btn primary" type="submit">Guardar</button><button class="btn ghost" type="button" data-act="cancel-meta">Cancelar</button></div></form>';
   }
-  if(!g.example&&g.status==="final"&&(!S.lastBackup||(g.updatedAt||0)>S.lastBackup)){
-    h+='<div class="card form" style="border-color:var(--accent)"><p style="margin:0"><b>Guarda una copia del partido.</b> Así no lo pierdes si cambias de móvil o se borra el navegador.</p><button class="btn primary block" data-act="backup">Guardar copia</button>'+(notice?'<p class="small" style="margin:0">'+esc(notice)+'</p>':"")+'</div>';
-  } else if(notice&&/[Cc]opia/.test(notice)){h+='<p class="small" style="margin:0"><b>'+esc(notice)+'</b></p>'}
   h+='<section class="card"><table class="st"><tbody>'+
     (msD!=null?'<tr><td><b>Minutos</b> <span class="muted small">'+(g.minManual!=null?"(según acta)":"(calculados)")+'</span></td><td>'+fmtMin(msD)+'</td></tr>':"")+
-    '<tr><td><b>Valoración</b> <span class="muted small">(sistema ACB/FEB)</span></td><td>'+c.val+'</td></tr>'+
+    '<tr class="valinfo" data-act="val-info" data-id="'+g.id+'" role="button" tabindex="0"><td><b>Valoración</b><i class="ib">i</i> <span class="muted small">(ACB/FEB)</span></td><td>'+c.val+'</td></tr>'+
     (msD!=null?'<tr><td>Por 10 min <span class="muted small">(pts · val)</span></td><td style="white-space:nowrap">'+per10(c.pts,msD)+' · '+per10(c.val,msD)+'</td></tr>':"")+
     '<tr><td>Tiros de 2</td><td>'+c.m2+'/'+c.a2+'<span class="pct">'+pct(c.m2,c.a2)+'</span></td></tr>'+
     '<tr><td>Triples</td><td>'+c.m3+'/'+c.a3+'<span class="pct">'+pct(c.m3,c.a3)+'</span></td></tr>'+
@@ -585,7 +621,7 @@ function vDetail(){
   var qs=[1,2,3,4,5].filter(function(q){return g.events.some(function(e){return e.q===q})});
   if(qs.length){
     h+='<section class="card"><div class="section-head"><h2>Por cuartos</h2></div><div class="qt-wrap"><table class="qt"><thead><tr><th>Cuarto</th>'+(tmD.done?'<th>Min</th>':"")+'<th>Pts</th><th>Val</th><th>TC</th><th>TL</th><th>Reb</th><th>Fal</th></tr></thead><tbody>'+
-      qs.map(function(q){var k=calc(g,q);return '<tr><td>'+qShort(q)+'</td>'+(tmD.done?'<td>'+(tmD.per[q]&&tmD.per[q].done?fmtMin(tmD.per[q].sec):"–")+'</td>':"")+'<td>'+k.pts+'</td><td class="v">'+k.val+'</td><td>'+(k.m2+k.m3)+'/'+(k.a2+k.a3)+'</td><td>'+k.mft+'/'+k.aft+'</td><td>'+k.reb+'</td><td>'+k.pf+'</td></tr>'}).join("")+
+      qs.map(function(q){var k=calc(g,q);return '<tr><td>'+qShort(q)+'</td>'+(tmD.done?'<td>'+fmtMin(qSec(g,tmD,q))+'</td>':"")+'<td>'+k.pts+'</td><td class="v">'+k.val+'</td><td>'+(k.m2+k.m3)+'/'+(k.a2+k.a3)+'</td><td>'+k.mft+'/'+k.aft+'</td><td>'+k.reb+'</td><td>'+k.pf+'</td></tr>'}).join("")+
       '</tbody></table></div></section>';
   }
   if(tmD.done)h+=rotCard(g,tmD);
@@ -595,7 +631,6 @@ function vDetail(){
   if(editNotes)h+='<form class="form" data-form="notes"><textarea id="dt-notes" maxlength="1000" aria-label="Notas del partido">'+esc(g.notes||"")+'</textarea><div class="row"><button class="btn primary" type="submit">Guardar notas</button><button class="btn ghost" type="button" data-act="cancel-notes">Cancelar</button></div></form>';
   else h+=g.notes?'<p class="notes-txt">'+esc(g.notes)+'</p>':'<p class="muted" style="margin:0">Sin notas.</p>';
   h+='</section>';
-  h+='<button class="btn primary block" data-act="share-card">Compartir imagen del partido</button>';
   if(shareSheet){
     h+='<div class="scrim" data-act="close-share"></div><div class="sheet" role="dialog" aria-label="Compartir imagen"><div class="sheet-in">'+
       '<h2 style="font-size:28px">Compartir imagen</h2>'+
@@ -606,9 +641,16 @@ function vDetail(){
       (notice&&/[Ii]magen/.test(notice)?'<p class="small" style="margin:0">'+esc(notice)+'</p>':"")+
     '</div></div>';
   }
-  h+='<div class="row"><button class="btn" data-act="copy-summary">Copiar resumen</button><button class="btn" data-act="reopen">Corregir estadísticas</button><button class="btn" data-act="edit-meta">Editar datos</button></div>';
-  h+=(notice?'<p class="small" style="margin:0">'+esc(notice)+'</p>':"");
-  h+='<div id="copy-fallback"></div>';
+  var pendBk=!g.example&&(!S.lastBackup||(g.updatedAt||0)>S.lastBackup);
+  h+='<section class="card form"><div class="section-head" style="margin:0"><h2>Acciones</h2></div><div class="actions">'+
+    '<button class="btn primary" data-act="share-card">Compartir imagen del partido</button>'+
+    '<button class="btn" data-act="copy-summary">Copiar resumen</button>'+
+    '<button class="btn" data-act="reopen">Corregir estadísticas</button>'+
+    '<button class="btn" data-act="edit-meta">Editar datos</button>'+
+    '<button class="btn'+(pendBk?" pending":"")+'" data-act="backup">Guardar copia'+(pendBk?" · pendiente":"")+'</button>'+
+    '</div>'+(pendBk?'<p class="small muted" style="margin:0">Este partido aún no está en ninguna copia. Guárdala para no perderlo si cambias de móvil.</p>':"")+
+    (notice&&!/[Ii]magen/.test(notice)?'<p class="small" style="margin:0"><b>'+esc(notice)+'</b></p>':"")+
+    '<div id="copy-fallback"></div></section>';
   h+=confirmDel?'<div class="card form"><p style="margin:0">¿Eliminar el partido contra '+esc(g.rival)+'? No se puede deshacer.</p><div class="row"><button class="btn danger" data-act="delete">Eliminar</button><button class="btn ghost" data-act="cancel-del">Cancelar</button></div></div>':'<button class="btn ghost danger" style="border:0;align-self:flex-start" data-act="ask-del">Eliminar partido</button>';
   return h;
 }
@@ -622,11 +664,11 @@ function rotCard(g,tm){
     o+='<rect x="'+X0+'" y="'+y+'" width="'+(X1-X0)+'" height="18" rx="4" fill="var(--surface-2)" stroke="var(--line)"/>';
     tm.segs.forEach(function(sg){var s0=Math.max(sg[0],p.a),s1=Math.min(sg[1],p.b);if(s1>s0)o+='<rect x="'+X(s0).toFixed(1)+'" y="'+y+'" width="'+Math.max(1.5,X(s1)-X(s0)).toFixed(1)+'" height="18" rx="3" fill="var(--team)"/>'});
     tm.pauses.forEach(function(ps){var s0=Math.max(ps[0],p.a),s1=Math.min(ps[1],p.b);if(s1>s0)o+='<rect x="'+X(s0).toFixed(1)+'" y="'+(y+6)+'" width="'+Math.max(1.5,X(s1)-X(s0)).toFixed(1)+'" height="6" fill="var(--muted)" opacity=".5"/>'});
-    o+='<text x="'+W+'" y="'+(y+14)+'" text-anchor="end" style="font:700 15px var(--f-display);fill:var(--ink)">'+fmtMin(p.sec)+'</text>';
+    o+='<text x="'+W+'" y="'+(y+14)+'" text-anchor="end" style="font:700 15px var(--f-display);fill:var(--ink)">'+fmtMin(qSec(g,tm,q))+'</text>';
   });
   o+='</svg>';
-  return '<section class="card"><div class="section-head"><h2>Rotaciones</h2><span class="legend"><span><i class="on"></i>En pista</span><span><i class="off"></i>Banquillo</span></span></div>'+o+
-    '<p class="small muted" style="margin:8px 0 0">Cada barra es un cuarto en tiempo real. A la derecha, minutos de juego calculados (cuartos de '+(g.qLen||10)+' min).</p></section>';
+  return '<section class="card"><div class="section-head"><h2>Rotaciones</h2><span class="legend"><span><i class="on"></i>En pista</span><span><i class="off"></i>Banquillo</span>'+(tm.pauses.length?'<span><i class="pz"></i>Pausa</span>':"")+'</span></div>'+o+
+    '<p class="small muted" style="margin:8px 0 0">Cada barra es un cuarto en tiempo real. A la derecha, minutos de juego '+(g.minManual!=null&&g.minManual!==""?'ajustados para sumar los '+String(g.minManual).replace(".",",")+' min del acta':'calculados (cuartos de '+(g.qLen||10)+' min)')+'.'+(tm.pauses.length?' La raya gris marca las pausas, que no cuentan.':'')+'</p></section>';
 }
 function chartSVG(list){
   var n=list.length;if(n<2)return '<p class="muted" style="margin:0">Con 2 partidos o más verás aquí cómo evoluciona.</p>';
@@ -684,7 +726,8 @@ function renderDock(){
   var g=S.games[currentId];if(!g)return;
   var last=g.events[g.events.length-1];
   var d=document.createElement("div");d.className="dock";d.id="dock";
-  d.innerHTML='<div class="dock-in"><div class="last"><b>'+(last?esc(describe(last))+(last.q?" · "+qShort(last.q):""):"Sin acciones todavía")+'</b><span class="'+(storageOK?"saved":"")+'">'+(storageOK?"Guardado en el móvil"+(lastSaved?" · "+lastSaved.toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"}):""):"Sin guardar")+'</span></div><button class="btn" data-act="undo" '+(last?"":"disabled")+'>Deshacer</button></div>';
+  var tmK=timing(g);
+  d.innerHTML='<div class="dock-in"><div class="last"><b>'+(last?esc(describe(last))+(last.q?" · "+qShort(last.q):""):"Sin acciones todavía")+'</b><span class="'+(storageOK?"saved":"")+'">'+(storageOK?"Guardado en el móvil"+(lastSaved?" · "+lastSaved.toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"}):""):"Sin guardar")+'</span></div>'+(tmK.running?'<button class="btn'+(tmK.paused?" resume":"")+'" data-act="pause">'+(tmK.paused?"Reanudar":"Pausa")+'</button>':"")+'<button class="btn" data-act="undo" '+(last?"":"disabled")+'>Deshacer</button></div>';
   document.body.appendChild(d);
 }
 
@@ -697,6 +740,7 @@ function onCourtTap(ev){
   var svg=ev.currentTarget, pt=svg.createSVGPoint();pt.x=ev.clientX;pt.y=ev.clientY;
   var m=svg.getScreenCTM();if(!m)return;var p=pt.matrixTransform(m.inverse());
   var x=Math.max(0,Math.min(150,p.x)), y=Math.max(0,Math.min(112,p.y));
+  var gf=S.games[currentId];if(gf&&gf.flip){x=150-x;y=112-y}
   x=Math.round(x*10)/10;y=Math.round(y*10)/10;
   pendingShot={x:x,y:y,v:isThree(x,y)?3:2};render();
 }
@@ -751,6 +795,7 @@ document.addEventListener("click",function(ev){
   else if(a==="qreopen"){var gr2=S.games[currentId],tr=timing(gr2);
     for(var ri=gr2.events.length-1;ri>=0;ri--){var ev=gr2.events[ri];if(ev.t==="qe"&&ev.q===tr.lastEnded){gr2.events.splice(ri,1);break}}
     touch(gr2);buzz();render()}
+  else if(a==="flip"){var gfl=S.games[currentId];gfl.flip=!gfl.flip;persist();buzz();render()}
   else if(a==="pause"){var tp=timing(S.games[currentId]);addEvent({t:tp.paused?"pe":"ps"});render()}
   else if(a==="toggle-court"){var tc=timing(S.games[currentId]);addEvent({t:tc.on?"out":"in"});benchWarn=false;render()}
   else if(a==="bench-yes"){addEvent({t:"in"});benchWarn=false;render()}
@@ -767,6 +812,7 @@ document.addEventListener("click",function(ev){
   else if(a==="cancel-notes"){editNotes=false;render()}
   else if(a==="edit-meta"){editMeta=true;render();window.scrollTo(0,0)}
   else if(a==="cancel-meta"){editMeta=false;render()}
+  else if(a==="val-info"){openValPop(b);return}
   else if(a==="share-card"){shareSheet=true;notice="";prepShare()}
   else if(a==="share-mode"){shareMode=b.getAttribute("data-v");prepShare()}
   else if(a==="close-share"){closeShare();render()}
@@ -981,7 +1027,7 @@ function buildCard(g,mode,withNotes){
             qs.forEach(function(q,i){var k=calc(g,q),Y=tt+8+(i+1)*trh;
               x.strokeStyle="#e6ecf0";x.lineWidth=1.5;x.beginPath();x.moveTo(92,Y);x.lineTo(W-92,Y);x.stroke();
               x.textAlign="left";x.fillStyle=INK;x.font="600 28px "+BODY;x.fillText(qName(q),92,Y+42);
-              var vals=(showMin?[tmI.per[q]&&tmI.per[q].done?fmtMin(tmI.per[q].sec):"–"]:[]).concat([k.pts,k.val,(k.m2+k.m3)+"/"+(k.a2+k.a3),k.mft+"/"+k.aft,k.reb,k.pf]);
+              var vals=(showMin?[fmtMin(qSec(g,tmI,q))]:[]).concat([k.pts,k.val,(k.m2+k.m3)+"/"+(k.a2+k.a3),k.mft+"/"+k.aft,k.reb,k.pf]);
               x.textAlign="right";x.font="700 34px "+DISP;vals.forEach(function(v,j){x.fillStyle=j===(showMin?2:1)?ACC:INK;x.fillText(String(v),cols[j+1][1],Y+43)})});
             x.textAlign="left";y=tt+th;
           }
@@ -1002,6 +1048,42 @@ function buildCard(g,mode,withNotes){
   });
 }
 
+/* ---------- Explicación de la valoración ---------- */
+var valPopEl=null,valPopY=0;
+function closeValPop(){if(valPopEl){valPopEl.remove();valPopEl=null}}
+function valPopHTML(scope,id){
+  var rows,head,foot;
+  if(scope==="season"){
+    var basis=seasonPool(curSeason()),n=basis.length||1,t={pts:0,reb:0,ast:0,stl:0,blk:0,fd:0,mfg:0,mft:0,tov:0,blka:0,pf:0,val:0};
+    basis.forEach(function(g){var c=calc(g);t.pts+=c.pts;t.reb+=c.reb;t.ast+=c.ast;t.stl+=c.stl;t.blk+=c.blk;t.fd+=c.fd;t.mfg+=(c.a2-c.m2)+(c.a3-c.m3);t.mft+=c.aft-c.mft;t.tov+=c.tov;t.blka+=c.blka;t.pf+=c.pf;t.val+=c.val});
+    var a=function(v){return (v/n).toFixed(1).replace(".",",")};
+    rows=[["Puntos",a(t.pts),1],["Rebotes",a(t.reb),1],["Asistencias",a(t.ast),1],["Robos",a(t.stl),1],["Tapones",a(t.blk),1],["Faltas recibidas",a(t.fd),1],
+          ["Tiros de campo fallados",a(t.mfg),0],["Tiros libres fallados",a(t.mft),0],["Pérdidas",a(t.tov),0],["Tapones recibidos",a(t.blka),0],["Faltas cometidas",a(t.pf),0]];
+    head="Valoración media";foot=["Valoración media",a(t.val)];
+  } else {
+    var g=S.games[id];if(!g)return "";var c=calc(g);
+    rows=[["Puntos",c.pts,1],["Rebotes",c.reb,1],["Asistencias",c.ast,1],["Robos",c.stl,1],["Tapones",c.blk,1],["Faltas recibidas",c.fd,1],
+          ["Tiros de campo fallados",(c.a2-c.m2)+(c.a3-c.m3),0],["Tiros libres fallados",c.aft-c.mft,0],["Pérdidas",c.tov,0],["Tapones recibidos",c.blka,0],["Faltas cometidas",c.pf,0]];
+    head="Cómo se calcula la valoración";foot=["Valoración",c.val];
+  }
+  return '<h4>'+head+'</h4><table><tbody>'+rows.map(function(rw){var z=String(rw[1]).replace(",",".")==0;return '<tr class="'+(z?"zero":rw[2]?"plus":"minus")+'"><td>'+rw[0]+'</td><td>'+(z?"0":(rw[2]?"+":"−")+rw[1])+'</td></tr>'}).join("")+
+    '<tr class="tot"><td>= '+foot[0]+'</td><td>'+foot[1]+'</td></tr></tbody></table><p>Fórmula de la ACB y la FEB: suma lo positivo y resta los fallos, pérdidas, tapones recibidos y faltas.</p>';
+}
+function openValPop(el){
+  closeValPop();
+  var html=valPopHTML(el.getAttribute("data-scope"),el.getAttribute("data-id"));if(!html)return;
+  var d=document.createElement("div");d.className="valpop";d.setAttribute("role","dialog");d.innerHTML=html;document.body.appendChild(d);valPopEl=d;
+  var rc=el.getBoundingClientRect(),w=d.offsetWidth,h=d.offsetHeight,vw=window.innerWidth,vh=window.innerHeight;
+  var left=Math.min(Math.max(12,rc.left+rc.width/2-w/2),vw-w-12),top=rc.bottom+8;
+  if(top+h>vh-12)top=Math.max(12,rc.top-h-8);
+  d.style.left=left+"px";d.style.top=top+"px";valPopY=window.scrollY;
+}
+document.addEventListener("click",function(ev){
+  if(valPopEl&&!ev.target.closest(".valpop")){var same=ev.target.closest('[data-act="val-info"]');closeValPop();if(same){ev.stopImmediatePropagation();}}
+},true);
+window.addEventListener("scroll",function(){if(valPopEl&&Math.abs(window.scrollY-valPopY)>40)closeValPop()},{passive:true});
+document.addEventListener("keydown",function(ev){if(ev.key==="Escape")closeValPop();if((ev.key==="Enter"||ev.key===" ")&&ev.target.getAttribute&&ev.target.getAttribute("data-act")==="val-info"){ev.preventDefault();openValPop(ev.target)}});
+
 /* ---------- Reloj en directo ---------- */
 setInterval(function(){
   if(view!=="game")return;var g=S.games[currentId];if(!g)return;
@@ -1021,7 +1103,7 @@ window.addEventListener("pagehide",persist);
 /* ---------- Copia en Google Sheets ---------- */
 if(!S.sync)S.sync={url:"",token:""};
 var cloud={status:"off"}, syncTimer=null, flushing=false, showSync=false;
-function syncOn(){return !!(S.sync&&S.sync.url&&S.sync.token)}
+function syncOn(){return false}
 function setCloud(s){if(cloud.status===s)return;cloud.status=s;if(view==="home")render()}
 function scheduleSync(){if(!syncOn())return;clearTimeout(syncTimer);syncTimer=setTimeout(flush,2500)}
 function api(payload){
